@@ -564,7 +564,9 @@ class Tree():
     def show(self, expression, intensity):
         #exp = MakeCoupledFaceExpr()
         exp = MakeFaceExpr()
-        exp.robotname = "dmitry"
+        # there is no such attribute - robotname
+        # TODO: find original eva_behavior repo
+        #exp.robotname = "dmitry"
         self.blackboard["current_emotion"] = expression
         self.blackboard["current_emotion_intensity"] = intensity
         exp.expr.exprname = self.blackboard["current_emotion"]
