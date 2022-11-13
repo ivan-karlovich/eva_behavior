@@ -10,7 +10,10 @@ import os
 from std_msgs.msg import String
 from eva_behavior.msg import event
 from eva_behavior.msg import tracking_action
-from basic_head_api.msg import MakeCoupledFaceExpr
+#from basic_head_api.msg import MakeCoupledFaceExpr
+# there is no MakeCoupledFaceExpr in basic_head_api repo
+# so MakeFaceExpr will be used instead
+from basic_head_api.msg import MakeFaceExpr
 
 
 class Tree():
@@ -106,7 +109,8 @@ class Tree():
         rospy.Subscriber("/tracking_event", event, self.tracking_event_callback)
         self.tracking_mode_pub = rospy.Publisher("/cmd_blendermode", String, queue_size=1, latch=True)
         self.action_pub = rospy.Publisher("/tracking_action", tracking_action, queue_size=5, latch=True)
-        self.emotion_pub = rospy.Publisher("/dmitry/make_coupled_face_expr", MakeCoupledFaceExpr, queue_size=1)
+        #self.emotion_pub = rospy.Publisher("/dmitry/make_coupled_face_expr", MakeCoupledFaceExpr, queue_size=1)
+        self.emotion_pub = rospy.Publisher("/dmitry/make_face_expr", MakeFaceExpr, queue_size=1)
         self.tree = self.build_tree()
         time.sleep(0.1)
         while True:
@@ -558,7 +562,8 @@ class Tree():
         yield True
 
     def show(self, expression, intensity):
-        exp = MakeCoupledFaceExpr()
+        #exp = MakeCoupledFaceExpr()
+        exp = MakeFaceExpr()
         exp.robotname = "dmitry"
         self.blackboard["current_emotion"] = expression
         self.blackboard["current_emotion_intensity"] = intensity
